@@ -1,6 +1,9 @@
 "use client"
 
 import Link from "next/link"
+import { event } from "@/lib/gtag"
+
+
 import {
   ChevronRight,
   Phone,
@@ -53,26 +56,47 @@ export default function Home() {
 
         {/* Botões Desktop */}
         <div className="hidden md:flex gap-2">
-          <Button
-            variant="outline"
-            className="text-sm font-semibold text-blue-900 border-blue-900 hover:bg-blue-100 px-2"
-            onClick={() =>
-              window.open(
-                "https://wa.me/+559481067623?text=Ol%C3%A1!%20Vim%20pelo%20site%20e%20gostaria%20de%20mais%20informa%C3%A7%C3%B5es%20do%20conv%C3%AAnio!",
-                "_blank"
-              )
-            }
-          >
-            <img
-              src="/logovale.png"
-              alt="Convênio Vale"
-              className="h-10 w-10 mr-2 object-contain rounded-full"
-            />
-            Aceitamos Vale
-          </Button>
+       
+            <Button
+              variant="outline"
+              className="text-sm font-semibold text-blue-900 border-blue-900 hover:bg-blue-100 px-2"
+              onClick={() => {
+                // Disparar evento no Google Analytics
+                event({
+                  action: "click",
+                  category: "botao",
+                  label: "Botao Vale WhatsApp",
+                  value: 1,
+                })
+
+                // Abrir link do WhatsApp
+                window.open(
+                  "https://wa.me/+559481067623?text=Ol%C3%A1!%20Vim%20pelo%20site%20e%20gostaria%20de%20mais%20informa%C3%A7%C3%B5es%20do%20conv%C3%AAnio!",
+                  "_blank"
+                )
+              }}
+            >
+              <img
+                src="/logovale.png"
+                alt="Convênio Vale"
+                className="h-10 w-10 mr-2 object-contain rounded-full"
+              />
+              Aceitamos Vale
+            </Button>
           <Button
             className="bg-blue-900/90 hover:bg-blue-700"
-            onClick={() => window.open(whatsappLink, "_blank")}
+            onClick={() => {
+              // Disparar evento para o Google Analytics
+              event({
+                action: "click",
+                category: "botao",
+                label: "Botao Agendar Consulta WhatsApp",
+                value: 1,
+              })
+
+              // Abrir o WhatsApp em nova aba
+              window.open(whatsappLink, "_blank")
+            }}
           >
             <Phone className="mr-2 h-4 w-4" />
             Agendar Consulta
@@ -81,7 +105,21 @@ export default function Home() {
 
         {/* Botão Mobile (menu hambúrguer) */}
         <div className="md:hidden">
-          <Button variant="ghost" onClick={() => setMobileOpen(true)}>
+        <Button
+            variant="ghost"
+            onClick={() => {
+              // Disparar evento de clique no menu mobile
+              event({
+                action: "click",
+                category: "botao",
+                label: "Botao Menu Mobile",
+                value: 1,
+              })
+
+              // Abrir o menu
+              setMobileOpen(true)
+            }}
+          >
             <Menu className="h-12 w-12 text-blue-900" strokeWidth={4} />
           </Button>
         </div>
@@ -92,10 +130,24 @@ export default function Home() {
         <div className="fixed inset-0 bg-white z-50 p-4 flex flex-col gap-4 md:hidden">
           <div className="flex justify-between items-center mb-4">
             <span className="text-xl font-bold text-blue-900">Menu</span>
-            <Button variant="ghost" onClick={() => setMobileOpen(false)}>
-              <X className="h-6 w-6 text-blue-900" />
-            </Button>
-          </div>
+            <Button
+            variant="ghost"
+            onClick={() => {
+              // Disparar evento no Google Analytics
+              event({
+                action: "click",
+                category: "botao",
+                label: "Botao Fechar Menu Mobile",
+                value: 1,
+              })
+
+              // Fechar o menu
+              setMobileOpen(false)
+            }}
+          >
+            <X className="h-6 w-6 text-blue-900" />
+          </Button>
+                    </div>
       <Link href="#sobre" onClick={() => setMobileOpen(false)} className="font-bold">Sobre</Link>
       <Link href="#historia" onClick={() => setMobileOpen(false)} className="font-bold">História</Link>
       <Link href="#equipe" onClick={() => setMobileOpen(false)} className="font-bold">Equipe</Link>
@@ -103,26 +155,46 @@ export default function Home() {
       <Link href="#depoimentos" onClick={() => setMobileOpen(false)} className="font-bold">Depoimentos</Link>
       <Link href="#contato" onClick={() => setMobileOpen(false)} className="font-bold">Contato</Link>
 
-            <Button
+           <Button
             variant="outline"
             className="text-blue-900 border-blue-900 flex items-center"
-            onClick={() =>
+            onClick={() => {
+              // Disparar evento no GA4
+              event({
+                action: "click",
+                category: "botao",
+                label: "Botao Aceitamos Vale WhatsApp",
+                value: 1,
+              })
+
+              // Abrir WhatsApp
               window.open(
                 "https://wa.me/+559481067623?text=Ol%C3%A1!%20Vim%20pelo%20site%20e%20gostaria%20de%20mais%20informa%C3%A7%C3%B5es%20do%20conv%C3%AAnio!",
                 "_blank"
               )
-            }
+            }}
           >
             <img src="/logovale.png" alt="Logo Vale" className="w-12 h-6 mr-1" />
             <span>Aceitamos Vale</span>
           </Button>
-          <Button
-            className="bg-blue-900/90 hover:bg-blue-700"
-            onClick={() => window.open(whatsappLink, "_blank")}
-          >
-            <Phone className="mr-2 h-4 w-4" />
-            Agendar Consulta
-          </Button>
+            <Button
+        className="bg-blue-900/90 hover:bg-blue-700"
+        onClick={() => {
+          // Disparar evento no GA4
+          event({
+            action: "click",
+            category: "botao",
+            label: "Botao Agendar Consulta WhatsApp",
+            value: 1,
+          })
+
+          // Abrir o link do WhatsApp
+          window.open(whatsappLink, "_blank")
+        }}
+      >
+        <Phone className="mr-2 h-4 w-4" />
+        Agendar Consulta
+      </Button>
         </div>
       )}
     </header>
@@ -145,44 +217,74 @@ export default function Home() {
                 </p>
                 <div className="flex flex-col gap-3 sm:flex-row">
                   <Button
-                    size="lg"
-                    className="bg-green-500 text-white hover:bg-white/20"
-                    onClick={() => window.open(whatsappLink, "_blank")}
-                  >
-                    Agendar Consulta <ChevronRight className="ml-2 h-5 w-5" />
-                  </Button>
+                size="lg"
+                className="bg-green-500 text-white hover:bg-white/20"
+                onClick={() => {
+                  // Disparar evento no GA4
+                  event({
+                    action: "click",
+                    category: "botao",
+                    label: "Botao Agendar Consulta Verde WhatsApp",
+                    value: 1,
+                  })
+
+                  // Abrir o link do WhatsApp
+                  window.open(whatsappLink, "_blank")
+                }}
+              >
+                Agendar Consulta <ChevronRight className="ml-2 h-5 w-5" />
+              </Button>
+
                   {/* Botão visível só no DESKTOP */}
                   <div className="hidden md:block">
-                    <Button
-                      asChild
-                      size="lg"
-                      variant="outline"
-                      className="bg-blue-500 text-white hover:bg-white/20"
-                    >
-                      <a href="#procedimentos">
-                        <Calendar className="mr-2 h-5 w-5" />
-                        Conhecer Serviços
-                      </a>
-                    </Button>
-                  </div>
-
-                  {/* Alternativa visível só no MOBILE */}
-                  <div className="block md:hidden">
                   <Button
                     asChild
                     size="lg"
                     variant="outline"
-                    className="bg-white text-deepBlue hover:bg-white/20 flex items-center gap-2"
+                    className="bg-blue-500 text-white hover:bg-white/20"
                   >
                     <a
-                      href="https://wa.me/+559481067623?text=Ol%C3%A1!%20Vim%20pelo%20site%20e%20gostaria%20de%20mais%20informa%C3%A7%C3%B5es%20do%20conv%C3%AAnio!"
-                      target="_blank"
-                      rel="noopener noreferrer"
+                      href="#procedimentos"
+                      onClick={() =>
+                        event({
+                          action: "click",
+                          category: "botao",
+                          label: "Botao Conhecer Serviços",
+                          value: 1,
+                        })
+                      }
                     >
-                      Aceitamos Convênio
-                      <img src="/logovale.png" alt="Logo" className="h-5 w-auto" />
+                      <Calendar className="mr-2 h-5 w-5" />
+                      Conhecer Serviços
                     </a>
                   </Button>
+                  </div>
+
+                  {/* Alternativa visível só no MOBILE */}
+                  <div className="block md:hidden">
+             <Button
+              asChild
+              size="lg"
+              variant="outline"
+              className="bg-white text-deepBlue hover:bg-white/20 flex items-center gap-2"
+            >
+              <a
+                href="https://wa.me/+559481067623?text=Ol%C3%A1!%20Vim%20pelo%20site%20e%20gostaria%20de%20mais%20informa%C3%A7%C3%B5es%20do%20conv%C3%AAnio!"
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() =>
+                  event({
+                    action: "click",
+                    category: "botao",
+                    label: "Botao Aceitamos Convenio WhatsApp",
+                    value: 1,
+                  })
+                }
+              >
+                Aceitamos Convênio
+                <img src="/logovale.png" alt="Logo" className="h-5 w-auto" />
+              </a>
+              </Button>
                 </div>
 
                 </div>
@@ -472,10 +574,24 @@ export default function Home() {
                 <p className="text-gray-500 mb-6">
                   Nossa equipe também conta com auxiliares e recepcionistas para oferecer o melhor atendimento.
                 </p>
-                <Button className="bg-blue-600 hover:bg-blue-700" onClick={() => window.open(whatsappLink, "_blank")}>
-                  <Calendar className="mr-2 h-4 w-4" />
-                  Agendar Consulta
-                </Button>
+                <Button
+                className="bg-blue-600 hover:bg-blue-700"
+                onClick={() => {
+                  // Disparar evento no GA4
+                  event({
+                    action: "click",
+                    category: "botao",
+                    label: "Botao Agendar Consulta Azul WhatsApp",
+                    value: 1,
+                  })
+
+                  // Abrir o WhatsApp
+                  window.open(whatsappLink, "_blank")
+                }}
+              >
+                <Calendar className="mr-2 h-4 w-4" />
+                Agendar Consulta
+              </Button>
               </div>
             </div>
           </section>
@@ -612,10 +728,24 @@ export default function Home() {
                     <p className="text-white">(94) 98106-7623</p>
                   </div>
 
-                  <Button
+                <Button
                     size="lg"
                     className="bg-blue-600 text-white hover:bg-blue-800"
-                    onClick={() => window.open("https://wa.me/+5594981067623?text=Ol%C3%A1!%20Vim%20pelo%20site%20e%20gostaria%20de%20mais%20informa%C3%A7%C3%B5es", "_blank")}
+                    onClick={() => {
+                      // Disparar evento no GA4
+                      event({
+                        action: "click",
+                        category: "botao",
+                        label: "Botao Agendar Consulta WhatsApp Fixo",
+                        value: 1,
+                      })
+
+                      // Abrir o WhatsApp no link fixo
+                      window.open(
+                        "https://wa.me/+5594981067623?text=Ol%C3%A1!%20Vim%20pelo%20site%20e%20gostaria%20de%20mais%20informa%C3%A7%C3%B5es",
+                        "_blank"
+                      )
+                    }}
                   >
                     Agendar Consulta
                   </Button>

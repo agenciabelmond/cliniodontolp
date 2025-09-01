@@ -22,11 +22,11 @@ const testimonials: Testimonial[] = [
   },
   {
     id: 3,
-    name: "Tia Ruth",
+    name: "Adria Sousa",
     content:
-      "Excelente atendimento, profissionalismo excepcional, atendimento nota 1000 das recepcionistas, ambiente aconchegante. E a Dra. Ivana é uma profissional maravilhosa. Atendimento humanizado, recomendo.",
+      "Minha primeira consulta, ótimo atendimento recomendo",
     rating: 5,
-    photo: "/TiaRuth.png",
+    photo: "/adria.png",
   },
   {
     id: 4,
